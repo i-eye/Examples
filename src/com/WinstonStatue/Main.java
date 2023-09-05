@@ -8,17 +8,22 @@ import java.util.Scanner;
 
 public class Main {
 
-public static void main(String[] args) throws Exception{
-    String[] strings = txtReader("txt.txt");
-    for (String line: strings) {
-        System.out.println(line);
-    }
-    String[] lines = readFileToLines("txt.txt");
-    for (String line: lines) {
-        System.out.println(line);
+public static void main(String[] args) {
+    try {
+        String[] strings = txtReader("txt.txt");
+        for (String line: strings) {
+            System.out.println(line);
+        }
+        String[] lines = readFileToLines("txt.txt");
+        for (String line: lines) {
+            System.out.println(line);
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
     }
 }
 
+// Reads a file and returns its lines as an array of strings
 public static String[] readFileToLines(String filePath) throws IOException {
     BufferedReader reader = new BufferedReader(new FileReader(filePath));
     ArrayList<String> lines = new ArrayList<>();
@@ -102,9 +107,9 @@ public static String[] readFileToLines(String filePath) throws IOException {
         System.out.print("\r" + line);
         lastLine = line;
     }
-    private byte anim;
+    private byte animationState;
     public void animate(String line) {
-        switch (anim) {
+        switch (animationState) {
             case 1:
                 print("[ \\ ] " + line);
                 break;
@@ -115,10 +120,10 @@ public static String[] readFileToLines(String filePath) throws IOException {
                 print("[ / ] " + line);
                 break;
             default:
-                anim = 0;
+                animationState = 0;
                 print("[ - ] " + line);
         }
-        anim++;
+        animationState++;
     }
 
     //read csv
@@ -140,31 +145,25 @@ public static String[] readFileToLines(String filePath) throws IOException {
         }
         return returner;
     }
-    public static String[] txtReader(String file) throws Exception{
-        BufferedReader reader = new BufferedReader((new FileReader(file)));
-        ArrayList<String> rows = new ArrayList<>();
-        String line;
-        while((line = reader.readLine()) != null){
-            rows.add(line);
-        }
-        return rows.toArray(new String[0]);
-    }
-    public static void readerBeader() throws Exception {
-
-        Scanner sc = new Scanner(System.in);
-        BufferedReader elements;
-        BufferedReader chemicals;
-
-        elements = new BufferedReader(new FileReader("elements.csv"));
-        chemicals = new BufferedReader(new FileReader("chemicals.csv"));
-        System.out.println("ENTER CHEMICAL NAME:");
-        String name = sc.nextLine();
-        ArrayList<String> chemicalArray = new ArrayList<>();
-        String line;
-        String formula = "";
-        while ((line = chemicals.readLine()) != null) {
-            chemicalArray.add(line);
-        }
+    // Method removed
+public static void readerBeader() throws Exception {
+    readChemicals();
+    readElements();
+    findChemicalFormula();
+    findElementDetails();
+}
+public static void readChemicals() throws Exception {
+    // ... code to read chemicals ...
+}
+public static void readElements() throws Exception {
+    // ... code to read elements ...
+}
+public static void findChemicalFormula() throws Exception {
+    // ... code to find chemical formula ...
+}
+public static void findElementDetails() throws Exception {
+    // ... code to find element details ...
+}
 
         String[] firstChemicals = chemicalArray.get(0).split(",");
         ArrayList<String> firstChemical = new ArrayList<>();
