@@ -8,17 +8,22 @@ import java.util.Scanner;
 
 public class Main {
 
-public static void main(String[] args) throws Exception{
-    String[] strings = txtReader("txt.txt");
-    for (String line: strings) {
-        System.out.println(line);
-    }
-    String[] lines = readFileToLines("txt.txt");
-    for (String line: lines) {
-        System.out.println(line);
+public static void main(String[] args) {
+    try {
+        String[] strings = txtReader("txt.txt");
+        for (String line: strings) {
+            System.out.println(line);
+        }
+        String[] lines = readFileToLines("txt.txt");
+        for (String line: lines) {
+            System.out.println(line);
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
     }
 }
 
+// Reads a file and returns its lines as an array of strings
 public static String[] readFileToLines(String filePath) throws IOException {
     BufferedReader reader = new BufferedReader(new FileReader(filePath));
     ArrayList<String> lines = new ArrayList<>();
@@ -102,9 +107,9 @@ public static String[] readFileToLines(String filePath) throws IOException {
         System.out.print("\r" + line);
         lastLine = line;
     }
-    private byte anim;
+    private byte animationState;
     public void animate(String line) {
-        switch (anim) {
+        switch (animationState) {
             case 1:
                 print("[ \\ ] " + line);
                 break;
@@ -115,10 +120,10 @@ public static String[] readFileToLines(String filePath) throws IOException {
                 print("[ / ] " + line);
                 break;
             default:
-                anim = 0;
+                animationState = 0;
                 print("[ - ] " + line);
         }
-        anim++;
+        animationState++;
     }
 
     //read csv
@@ -140,31 +145,47 @@ public static String[] readFileToLines(String filePath) throws IOException {
         }
         return returner;
     }
-    public static String[] txtReader(String file) throws Exception{
-        BufferedReader reader = new BufferedReader((new FileReader(file)));
-        ArrayList<String> rows = new ArrayList<>();
-        String line;
-        while((line = reader.readLine()) != null){
-            rows.add(line);
-        }
-        return rows.toArray(new String[0]);
+    // Method removed
+public static void readerBeader() throws Exception {
+    readChemicals();
+    readElements();
+    findChemicalFormula();
+    findElementDetails();
+}
+public static ArrayList<String> readChemicals() throws Exception {
+    BufferedReader reader = new BufferedReader(new FileReader("chemicals.csv"));
+    ArrayList<String> chemicals = new ArrayList<>();
+    String line;
+    while ((line = reader.readLine()) != null) {
+        chemicals.add(line);
     }
-    public static void readerBeader() throws Exception {
-
-        Scanner sc = new Scanner(System.in);
-        BufferedReader elements;
-        BufferedReader chemicals;
-
-        elements = new BufferedReader(new FileReader("elements.csv"));
-        chemicals = new BufferedReader(new FileReader("chemicals.csv"));
-        System.out.println("ENTER CHEMICAL NAME:");
-        String name = sc.nextLine();
-        ArrayList<String> chemicalArray = new ArrayList<>();
-        String line;
-        String formula = "";
-        while ((line = chemicals.readLine()) != null) {
-            chemicalArray.add(line);
-        }
+    return chemicals;
+}
+public static ArrayList<String> readElements() throws Exception {
+    BufferedReader reader = new BufferedReader(new FileReader("elements.csv"));
+    ArrayList<String> elements = new ArrayList<>();
+    String line;
+    while ((line = reader.readLine()) != null) {
+        elements.add(line);
+    }
+    return elements;
+}
+public static String findChemicalFormula(ArrayList<String> chemicals) throws Exception {
+    String chemicalFormula = "";
+    for (String chemical : chemicals) {
+        String[] parts = chemical.split(",");
+        chemicalFormula = parts[1]; // Assuming the chemical formula is the second element in each line
+    }
+    return chemicalFormula;
+}
+public static String findElementDetails(ArrayList<String> elements) throws Exception {
+    String elementDetails = "";
+    for (String element : elements) {
+        String[] parts = element.split(",");
+        elementDetails = parts[1]; // Assuming the element details are the second element in each line
+    }
+    return elementDetails;
+}
 
         String[] firstChemicals = chemicalArray.get(0).split(",");
         ArrayList<String> firstChemical = new ArrayList<>();
