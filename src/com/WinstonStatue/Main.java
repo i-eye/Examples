@@ -8,12 +8,26 @@ import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String[] args) throws Exception{
-        String[] strings = txtReader("txt.txt");
-        for (String line: strings) {
-            System.out.println(line);
-        }
+public static void main(String[] args) throws Exception{
+    String[] strings = txtReader("txt.txt");
+    for (String line: strings) {
+        System.out.println(line);
     }
+    String[] lines = readFileToLines("txt.txt");
+    for (String line: lines) {
+        System.out.println(line);
+    }
+}
+
+public static String[] readFileToLines(String filePath) throws IOException {
+    BufferedReader reader = new BufferedReader(new FileReader(filePath));
+    ArrayList<String> lines = new ArrayList<>();
+    String line;
+    while ((line = reader.readLine()) != null) {
+        lines.add(line);
+    }
+    return lines.toArray(new String[0]);
+}
 
     public static void ReaderExample() throws IOException {
         //creates it
