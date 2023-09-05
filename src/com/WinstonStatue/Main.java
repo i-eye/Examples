@@ -152,17 +152,39 @@ public static void readerBeader() throws Exception {
     findChemicalFormula();
     findElementDetails();
 }
-public static void readChemicals() throws Exception {
-    // ... code to read chemicals ...
+public static ArrayList<String> readChemicals() throws Exception {
+    BufferedReader reader = new BufferedReader(new FileReader("chemicals.csv"));
+    ArrayList<String> chemicals = new ArrayList<>();
+    String line;
+    while ((line = reader.readLine()) != null) {
+        chemicals.add(line);
+    }
+    return chemicals;
 }
-public static void readElements() throws Exception {
-    // ... code to read elements ...
+public static ArrayList<String> readElements() throws Exception {
+    BufferedReader reader = new BufferedReader(new FileReader("elements.csv"));
+    ArrayList<String> elements = new ArrayList<>();
+    String line;
+    while ((line = reader.readLine()) != null) {
+        elements.add(line);
+    }
+    return elements;
 }
-public static void findChemicalFormula() throws Exception {
-    // ... code to find chemical formula ...
+public static String findChemicalFormula(ArrayList<String> chemicals) throws Exception {
+    String chemicalFormula = "";
+    for (String chemical : chemicals) {
+        String[] parts = chemical.split(",");
+        chemicalFormula = parts[1]; // Assuming the chemical formula is the second element in each line
+    }
+    return chemicalFormula;
 }
-public static void findElementDetails() throws Exception {
-    // ... code to find element details ...
+public static String findElementDetails(ArrayList<String> elements) throws Exception {
+    String elementDetails = "";
+    for (String element : elements) {
+        String[] parts = element.split(",");
+        elementDetails = parts[1]; // Assuming the element details are the second element in each line
+    }
+    return elementDetails;
 }
 
         String[] firstChemicals = chemicalArray.get(0).split(",");
